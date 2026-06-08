@@ -1,13 +1,17 @@
-from fastapi import FastAPI
+﻿from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
+import logging
 from app.config import settings
 from app.database import init_db, SessionLocal
 from app.models.user_info import UserInfo
 from app.models.skill import Skill
 from app.models.project import Project
 from app.routers import home, contact
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title=settings.APP_NAME)
 
@@ -36,7 +40,7 @@ def startup():
         db.add(UserInfo(
             name="冯家宝",
             title="智能体应用开发工程师",
-            bio="熟练掌握Python、Django、LangChain等核心技术，具备全栈开发能力和大模型应用开发经验。独立完成从需求分析到产品落地的全流程开发，擅长智能体(Agent)设计与RAG知识库系统搭建。",
+            bio="熟练掌握了Python、Django、LangChain等AI大模型应用开发核心技术，具备全栈开发能力和大模型应用开发经验。能独立完成从需求分析到产品落地的全流程开发，擅长智能体(Agent)设计与RAG知识库搭建。",
             email="3498986894@qq.com",
             phone="13071766752",
             github="https://github.com/",
@@ -70,7 +74,7 @@ def startup():
                 tech_stack='["Python","LangChain","BERT","DeepSeek-V3","BGE-M3","Milvus","Chroma","RabbitMQ","Kafka","Docker","MySQL","Redis","SSE"]',
                 github_url="https://github.com/",
                 demo_url="",
-                highlights='["意图识别准确率93%","P90延迟<3秒","AI自动回复率>65%","年省客服成本约80万元","支撑5万条/分钟弹幕峰值","LLM调用成本每场15-25元"]',
+                highlights='["意图识别准确率93%","P90延迟<3秒","AI自动回复率65%","年省客服成本约50万元","支撑5万条/分钟弹幕峰值","LLM调用成本每场15-25元"]',
                 sort_order=1
             ),
             Project(
@@ -88,7 +92,7 @@ def startup():
                 tech_stack='["Python","Django","MySQL","Vue3","RESTful API","Redis","推荐算法","Git"]',
                 github_url="https://github.com/",
                 demo_url="",
-                highlights='["作品曝光量提升45%","用户互动率提升38%","bug修复率98%以上","Redis缓存优化查询响应速度","沉淀标准化开发流程文档"]',
+                highlights='["作品曝光量提升45%","用户互动率提升28%","bug修复率98%以上","Redis缓存优化查询响应速度","沉淀标准化开发流程文档"]',
                 sort_order=3
             ),
         ]
@@ -96,13 +100,18 @@ def startup():
             db.add(p)
 
         db.commit()
-        print("Seed data inserted successfully")
+        logger.info("Seed data inserted successfully")
     finally:
         db.close()
 
 frontend_dist = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", "frontend", "dist")
+logger.info(f"frontend_dist = {frontend_dist}")
+logger.info(f"frontend_dist exists = {os.path.isdir(frontend_dist)}")
 if os.path.isdir(frontend_dist):
     app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="frontend")
+    logger.info("Mounted frontend static files successfully")
+else:
+    logger.warning(f"frontend dist directory NOT FOUND at: {frontend_dist}")
 
 @app.get("/api/health")
 def health():
