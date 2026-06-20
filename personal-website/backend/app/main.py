@@ -43,7 +43,7 @@ def startup():
             bio="熟练掌握了Python、Django、LangChain等AI大模型应用开发核心技术，具备全栈开发能力和大模型应用开发经验。能独立完成从需求分析到产品落地的全流程开发，擅长智能体(Agent)设计与RAG知识库搭建。",
             email="3498986894@qq.com",
             phone="13071766752",
-            github="https://github.com/",
+            github="https://github.com/eat-less",
             location="上海"
         ))
 
@@ -72,7 +72,7 @@ def startup():
                 name="直播间AI智能助手",
                 description="以大模型技术为核心，聚焦护肤直播电商行业弹幕处理效率低、用户响应延迟高的痛点，搭建实时弹幕问答AI智能助手系统，实现弹幕智能理解与精准回复。",
                 tech_stack='["Python","LangChain","BERT","DeepSeek-V3","BGE-M3","Milvus","Chroma","RabbitMQ","Kafka","Docker","MySQL","Redis","SSE"]',
-                github_url="https://github.com/",
+                github_url="https://github.com/eat-less",
                 demo_url="",
                 highlights='["意图识别准确率93%","P90延迟<3秒","AI自动回复率65%","年省客服成本约50万元","支撑5万条/分钟弹幕峰值","LLM调用成本每场15-25元"]',
                 sort_order=1
@@ -81,7 +81,7 @@ def startup():
                 name="智慧农业AI大模型数字云平台",
                 description="以AI大模型与数字云平台为核心，构建精准水肥药一体化智能决策管理平台，实现农业生产全流程闭环管理，破解传统设施农业粗放管理、数据缺失等痛点。",
                 tech_stack='["Python","Django","MySQL","LangChain","LlamaIndex","Vue3","DeepSeek-V3"]',
-                github_url="https://github.com/",
+                github_url="https://github.com/eat-less",
                 demo_url="",
                 highlights='["AI自动生成灌溉施肥方案","预计节水30%以上","节肥25%以上","可视化方案展示与管理系统","数据全流程闭环管理"]',
                 sort_order=2
@@ -90,7 +90,7 @@ def startup():
                 name="众创内容生态平台",
                 description="以Django+Vue3为技术核心，为创作者提供内容发布、互动打赏、内容投资和任务接单的一体化线上平台，通过完善的作品管理功能提升用户参与度与内容流转效率。",
                 tech_stack='["Python","Django","MySQL","Vue3","RESTful API","Redis","推荐算法","Git"]',
-                github_url="https://github.com/",
+                github_url="https://github.com/eat-less",
                 demo_url="",
                 highlights='["作品曝光量提升45%","用户互动率提升28%","bug修复率98%以上","Redis缓存优化查询响应速度","沉淀标准化开发流程文档"]',
                 sort_order=3
