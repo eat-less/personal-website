@@ -1,3 +1,0 @@
-﻿display_name: "全栈部署经验库"
-short_description: "Vue3+FastAPI 项目部署到 Render/Vercel 的经验总结，包含 .gitignore、requirements.txt兼容性、Python3.14、SSH中文用户名等踩坑修复方案"
-default_prompt: "我需要把我的 Vue3+FastAPI 全栈项目部署到外网，请按照 fullstack-deploy 技能检查我的代码并完成部署"
