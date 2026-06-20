@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="home">
     <!-- Hero -->
     <section class="hero" id="home">
@@ -11,7 +11,7 @@
           <a v-if="user.github" :href="user.github" target="_blank">
             <el-button type="default" round>GitHub</el-button>
           </a>
-          <a v-if="user.email" :href="'mailto:' + user.email">
+          <a :href="'#contact'">
             <el-button type="primary" round>联系我</el-button>
           </a>
         </div>
@@ -29,13 +29,11 @@
             <div class="about-value">{{ item.value }}</div>
           </div>
         </div>
-        <!-- Additional personal info -->
         <div class="person-detail" style="max-width:900px;margin:40px auto 0;padding:32px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
           <h3 style="margin-bottom:20px;color:#1a1a2e;font-size:20px;">求职意向</h3>
-          <div class="job-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;">
-            <div><span style="color:#999;font-size:13px;">意向岗位</span><p style="font-weight:600;">智能体应用开发</p></div>
-            <div><span style="color:#999;font-size:13px;">意向城市</span><p style="font-weight:600;">上海</p></div>
-            <div><span style="color:#999;font-size:13px;">期望薪资</span><p style="font-weight:600;">7k-9k</p></div>
+          <div class="job-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;">
+            <div><span style="color:#999;font-size:13px;">意向职位</span><p style="font-weight:600;">智能体应用开发</p></div>
+            <div><span style="color:#999;font-size:13px;">期望薪资</span><p style="font-weight:600;">6k-7k</p></div>
             <div><span style="color:#999;font-size:13px;">当前状态</span><p style="font-weight:600;color:#67c23a;">随时到岗</p></div>
           </div>
 
@@ -103,36 +101,38 @@
         <h2 class="section-title">联系我</h2>
         <div class="contact-wrapper">
           <div class="contact-info">
-            <div class="info-item" v-if="user.email">
+            <div class="info-item">
               <span class="info-label">邮箱</span>
               <span class="info-value">{{ user.email }}</span>
             </div>
-            <div class="info-item" v-if="user.phone">
+            <div class="info-item">
               <span class="info-label">电话</span>
               <span class="info-value">{{ user.phone }}</span>
             </div>
-            <div class="info-item" v-if="user.location">
-              <span class="info-label">城市</span>
+            <div class="info-item">
+              <span class="info-label">所在地</span>
               <span class="info-value">{{ user.location }}</span>
             </div>
           </div>
           <div class="contact-form-box">
             <el-form :model="form" label-position="top">
-              <el-form-item label="姓名">
+              <el-form-item label="姓名" required>
                 <el-input v-model="form.name" placeholder="请输入您的姓名" />
               </el-form-item>
-              <el-form-item label="邮箱">
-                <el-input v-model="form.email" placeholder="请输入您的邮箱" />
+              <el-form-item label="邮箱" required>
+                <el-input v-model="form.email" placeholder="请输入您的邮箱（回复用）" />
               </el-form-item>
               <el-form-item label="主题">
-                <el-input v-model="form.subject" placeholder="请输入主题" />
+                <el-input v-model="form.subject" placeholder="主题（选填）" />
               </el-form-item>
-              <el-form-item label="留言">
+              <el-form-item label="留言内容" required>
                 <el-input v-model="form.content" type="textarea" :rows="4" placeholder="请输入留言内容" />
               </el-form-item>
-              <el-button type="primary" @click="handleSubmit" :loading="submitting" round>
-                {{ submitting ? '发送中...' : '发送留言' }}
-              </el-button>
+              <el-form-item>
+                <el-button type="primary" @click="handleSubmit" :loading="submitting" style="width:100%">
+                  发送留言
+                </el-button>
+              </el-form-item>
             </el-form>
           </div>
         </div>
@@ -145,44 +145,41 @@
 import { getHomeData, submitContact } from '../api'
 
 export default {
-  name: 'Home',
+  name: 'HomeView',
   data() {
     return {
-      user: { name: '冯家宝', title: '', bio: '', github: '', email: '', phone: '', location: '' },
+      user: {},
       skills: [],
       projects: [],
       form: { name: '', email: '', subject: '', content: '' },
       submitting: false,
       advantages: [
-        { title: 'Python开发能力', desc: '熟练掌握Python语言，能够运用其进行高效的程序开发，支持业务功能的快速实现与迭代。' },
-        { title: '数据库操作能力', desc: '精通MySQL数据库，熟练编写SQL语句完成各种操作，保障数据处理的准确性与效率。' },
-        { title: 'Web框架应用能力', desc: '熟练运用Django框架进行Web应用开发，熟悉MVT架构模式，可快速搭建稳定、高效的Web项目。' },
-        { title: '大模型工具链掌握', desc: '熟练运用LangChain核心组件，具备Agent设计与开发能力，熟练掌握AVG框架，支持构建基于大模型的应用系统。' },
-        { title: '开源大模型部署', desc: '熟练部署本地OpenClaw智能体，掌握Coze工作流、插件调用与智能体配置，可快速落地AI应用。' },
-        { title: '全栈开发能力', desc: '熟练掌握Django后端框架和Vue前端技术栈，能够独立完成从需求分析到产品落地的全流程开发。' }
+        { title: '全栈开发能力', desc: '熟练掌握Python/Django/FastAPI后端开发，精通Vue3前端框架，能独立完成从数据库设计到前端交互的全流程开发。' },
+        { title: 'AI大模型应用', desc: '深入实践LangChain、Agent开发、RAG知识库搭建，具备大模型落地应用的工程化经验。' },
+        { title: '业务理解力', desc: '具备电商、农业、内容平台等多行业项目经验，能快速理解业务需求并转化为技术方案。' },
+        { title: '工程化思维', desc: '熟练使用Docker、Git等工具，注重代码规范和文档沉淀，具备良好的工程实践习惯。' }
       ]
     }
   },
   computed: {
     initials() {
-      return this.user.name ? this.user.name.charAt(0) : '?'
+      return this.user.name ? this.user.name.charAt(0) : 'F'
     },
     aboutItems() {
       return [
-        { icon: '\ud83d\udc64', label: '姓名', value: this.user.name || '-' },
-        { icon: '\ud83d\udc68\u200d\ud83d\udcbb', label: '职位', value: this.user.title || '-' },
-        { icon: '\ud83d\udce7', label: '邮箱', value: this.user.email || '-' },
-        { icon: '\ud83d\udcf1', label: '电话', value: this.user.phone || '-' }
+        { icon: '📧', label: '邮箱', value: this.user.email },
+        { icon: '📞', label: '电话', value: this.user.phone },
+        { icon: '🔗', label: 'GitHub', value: this.user.github ? '点击跳转' : '暂无' },
+        { icon: '📍', label: '所在地', value: this.user.location }
       ]
     }
   },
   methods: {
     parseJson(str) {
-      if (!str) return []
       try {
         return JSON.parse(str)
       } catch {
-        return str.replace(/[\[\]"]/g, '').split(',').map(s => s.trim())
+        return []
       }
     },
     async fetchData() {
@@ -223,7 +220,6 @@ export default {
 .section-title { text-align: center; font-size: 32px; font-weight: 700; margin-bottom: 48px; color: #1a1a2e; position: relative; }
 .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: #409eff; margin: 12px auto 0; border-radius: 2px; }
 
-/* Hero */
 .hero { padding: 140px 0 80px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
 .hero-avatar { width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.2); margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 700; border: 3px solid rgba(255,255,255,0.4); }
 .hero-name { font-size: 42px; font-weight: 700; margin-bottom: 8px; }
@@ -231,7 +227,6 @@ export default {
 .hero-bio { font-size: 16px; opacity: 0.8; max-width: 600px; margin: 0 auto 32px; line-height: 1.7; }
 .hero-links { display: flex; gap: 16px; justify-content: center; }
 
-/* About */
 .about { padding: 80px 0; }
 .about-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 .about-card { background: #fff; border-radius: 12px; padding: 32px 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.2s; }
@@ -242,7 +237,6 @@ export default {
 .advantage-item { transition: all 0.2s; }
 .advantage-item:hover { transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
-/* Skills */
 .skills { padding: 80px 0; background: #fff; }
 .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .skill-card { background: #f8fafc; border-radius: 10px; padding: 20px 24px; display: flex; align-items: center; gap: 16px; }
@@ -251,7 +245,6 @@ export default {
 .skill-fill { height: 100%; background: linear-gradient(90deg, #409eff, #67c23a); border-radius: 5px; transition: width 1s ease; }
 .skill-level { width: 44px; text-align: right; font-size: 14px; color: #666; }
 
-/* Projects */
 .projects { padding: 80px 0; }
 .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .project-card { background: #fff; border-radius: 12px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; }
@@ -263,7 +256,6 @@ export default {
 .project-highlights li { font-size: 13px; color: #888; line-height: 1.8; }
 .project-links { display: flex; gap: 10px; }
 
-/* Contact */
 .contact { padding: 80px 0; background: #fff; }
 .contact-wrapper { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; max-width: 900px; margin: 0 auto; }
 .contact-info { display: flex; flex-direction: column; gap: 24px; }

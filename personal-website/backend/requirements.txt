@@ -6,3 +6,4 @@ cryptography>=43.0.0
 pydantic>=2.9.0
 pydantic-settings>=2.5.0
 python-multipart>=0.0.9
+aiosmtplib>=3.0.0

@@ -1,0 +1,40 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+
+# 数据库（容器内用 MySQL）
+db.sqlite3
+*.sqlite3
+
+# 日志
+*.log
+
+# 前端（不在此容器内使用）
+Vue/
+node_modules/
+
+# 媒体文件（通过 volume 挂载）
+media/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Windows 系统文件
+Thumbs.db
+desktop.ini
+
+# Django 静态文件收集目录
+staticfiles/
